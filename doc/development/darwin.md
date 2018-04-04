@@ -26,31 +26,7 @@ brew install git
 ```
 
 #### Python
-Install non-system, framework-based, universal [Python](https://www.python.org/ftp/python/2.7.10/python-2.7.10-macosx10.6.pkg). Not with brew.
-
-#### Python tools
-```bash
-pip install -U pip setuptools
-pip install -U virtualenv
-```
-
-### Dependencies
-
-First you need to configure a virtualenv
-
-```bash
-virtualenv $HOME/venv
-```
-
-In order to use wxPython from the virtualenv this hack is needed
-
-```bash
-cp `which python` $HOME/venv/bin/python;
-echo 'export PYTHONHOME=$HOME/venv' >> $HOME/venv/bin/activate;
-source $HOME/venv/bin/activate
-```
-
-Then, you can install the python dependencies into the virtualenv
+use anaconda python 3
 
 #### OpenCV
 ```bash
@@ -60,22 +36,19 @@ brew install opencv
 ```
 
 ```bash
-ln -s /usr/local/Cellar/opencv/2.4.12_2/lib/python2.7/site-packages/cv.py $HOME/venv/lib/python2.7/site-packages;
-ln -s /usr/local/Cellar/opencv/2.4.12_2/lib/python2.7/site-packages/cv2.so $HOME/venv/lib/python2.7/site-packages
+ln -s /usr/local/Cellar/opencv/3.4.1_2/lib/python3.6/site-packages/cv2.cpython-36m-darwin.so 
+/usr/local/Cellar/opencv/3.4.1_2/lib/python3.6/site-packages/cv2.so
+ln -s /usr/local/Cellar/opencv/3.4.1_2/lib/python3.6/site-packages/cv2.so $HOME/anaconda3/lib/python3.6/site-packages
 ```
 
 #### wxPython
 ```bash
-brew install wxpython
-```
-
-```bash
-ln -s /usr/local/Cellar/wxpython/3.0.2.0/lib/python2.7/site-packages/wx* $HOME/venv/lib/python2.7/site-packages
+pip install wxpython
 ```
 
 #### Python modules
 ```bash
-pip install -U pyserial pyopengl pyopengl-accelerate numpy scipy matplotlib==1.4.0
+pip install -U pyserial pyopengl pyopengl-accelerate numpy scipy matplotlib==1.5.3
 ```
 
 ##### Pyobjc QTKit
@@ -87,50 +60,19 @@ sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 sudo xcodebuild
 ```
 
-* Downgrade setuptools
+* Install qtkit
 ```bash
-pip install -U setuptools==3.4
-```
-
-* Install qtkit 2.5.1
-```bash
-pip install -U pyobjc-core==2.5.1
-pip install -U pyobjc-framework-cocoa==2.5.1
-pip install -U pyobjc-framework-quartz==2.5.1
-pip install -U pyobjc-framework-qtkit==2.5.1
-```
-
-* Restore setuptools
-```bash
-pip install -U setuptools
+pip install -U pyobjc-core pyobjc-framework-cocoa pyobjc-framework-quartz pyobjc-framework-qtkit
 ```
 
 In order to generate dmg package, some extra dependencies are needed
 
 #### Packaging dependencies
 ```bash
-pip install -U py2app==0.7.2
+pip install -U py2app
 ```
 
 Also some patches are needed to make py2app work
-
-```bash
-cd $HOME/venv/lib/python2.7/site-packages/py2app/recipes;
-
-sed -i '' 's/scan_code/_scan_code/g' virtualenv.py;
-sed -i '' 's/load_module/_load_module/g' virtualenv.py;
-
-cd $HOME/venv/lib/python2.7/site-packages/macholib;
-
-sed -i '' 's/loader=loader.filename/loader_path=loader.filename/g' MachOGraph.py
-```
-
-To reduce the package size, "tests" directories must be removed
-
-```bash
-cd $HOME/venv/lib/python2.7/site-packages;
-find . -name tests -type d -exec rm -r {} +
-```
 
 ## 2. Download source code
 
@@ -138,7 +80,7 @@ All source code is available on GitHub. You can download main Horus project by d
 
 ### Horus
 ```bash
-git clone https://github.com/bq/horus.git
+git clone https://github.com/peace0phmind/horus.git
 cd horus
 ```
 
@@ -147,7 +89,7 @@ cd horus
 In the project directory, execute the command:
 
 ```bash
-./horus
+pythonw horus
 ```
 
 ## 4. Build packages
