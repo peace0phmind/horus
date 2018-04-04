@@ -38,7 +38,7 @@ class CapturePage(Page):
         self.current_grid = 0
         self.image_grid_panel = wx.Panel(self.panel)
         self.grid_sizer = wx.GridSizer(self.rows, self.columns, 3, 3)
-        for panel in xrange(self.rows * self.columns):
+        for panel in range(self.rows * self.columns):
             self.panel_grid.append(ImageView(self.image_grid_panel))
             self.panel_grid[panel].Bind(wx.EVT_KEY_DOWN, self.on_key_press)
             self.grid_sizer.Add(self.panel_grid[panel], 0, wx.ALL | wx.EXPAND)
@@ -62,7 +62,7 @@ class CapturePage(Page):
         self.current_grid = 0
         self.gauge.SetValue(0)
         camera_intrinsics.reset()
-        for panel in xrange(self.rows * self.columns):
+        for panel in range(self.rows * self.columns):
             self.panel_grid[panel].SetBackgroundColour((221, 221, 221))
             self.panel_grid[panel].set_image(wx.Image(resources.get_path_for_image("void.png")))
 

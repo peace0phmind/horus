@@ -42,7 +42,7 @@ class CurrentVideo(object):
 
         if self.mode == 'Gray':
             images = image_capture.capture_lasers()
-            for i in xrange(2):
+            for i in range(2):
                 images[i] = laser_segmentation.compute_line_segmentation(images[i])
             if images[0] is not None and images[1] is not None:
                 image = images[0] + images[1]

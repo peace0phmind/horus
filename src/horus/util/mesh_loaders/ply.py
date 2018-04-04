@@ -156,12 +156,12 @@ def save_scene_stream(stream, _object):
         stream.write(frame)
         if m.vertex_count > 0:
             if binary:
-                for i in xrange(m.vertex_count):
+                for i in range(m.vertex_count):
                     stream.write(struct.pack("<fffBBB",
                                              m.vertexes[i, 0], m.vertexes[i, 1], m.vertexes[i, 2],
                                              m.colors[i, 0], m.colors[i, 1], m.colors[i, 2]))
             else:
-                for i in xrange(m.vertex_count):
+                for i in range(m.vertex_count):
                     stream.write("{0} {1} {2} {3} {4} {5}\n".format(
                                  m.vertexes[i, 0], m.vertexes[i, 1], m.vertexes[i, 2],
                                  m.colors[i, 0], m.colors[i, 1], m.colors[i, 2]))

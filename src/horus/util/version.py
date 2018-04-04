@@ -7,7 +7,7 @@ __copyright__ = 'Copyright (C) 2014-2016 Mundo Reader S.L.\
 __license__ = 'GNU General Public License v2 http://www.gnu.org/licenses/gpl2.html'
 
 import json
-import urllib2
+import urllib
 import webbrowser
 
 from horus import __version__, __datetime__, __commit__
@@ -43,10 +43,10 @@ URL_DOWNLOAD = 'https://github.com/bqlabs/horus/releases/download/'
 def download_lastest_data():
     global latest_version, latest_commit, latest_datetime
     try:
-        f = urllib2.urlopen(URL_API_RELEASES, timeout=1)
+        f = urllib.request.urlopen(URL_API_RELEASES, timeout=1)
         content = json.loads(f.read())
         tag_name = content['tag_name']
-        f = urllib2.urlopen(URL_DOWNLOAD + tag_name + '/version', timeout=1)
+        f = urllib.request.urlopen(URL_DOWNLOAD + tag_name + '/version', timeout=1)
         content = json.loads(f.read())
         latest_version = Version(content['version'])
         latest_datetime = content['datetime']

@@ -73,8 +73,8 @@ class GLShader(GLReferenceCounter):
                 raise RuntimeError("Link failure: %s" % (glGetProgramInfoLog(self._program)))
             glDeleteShader(vertex_shader)
             glDeleteShader(fragment_shader)
-        except RuntimeError, e:
-            logger.error(str(e))
+        except RuntimeError as e:
+            logger.error(bytes(e))
             self._program = None
 
     def bind(self):
@@ -98,7 +98,7 @@ class GLShader(GLReferenceCounter):
                     glGetUniformLocation(self._program, name), 1, False,
                     value.getA().astype(numpy.float32))
             else:
-                logger.warning('Unknown type for setUniform: %s' % (str(type(value))))
+                logger.warning('Unknown type for setUniform: %s' % (bytes(type(value))))
 
     def is_valid(self):
         return self._program is not None
@@ -245,7 +245,7 @@ class GLVBO(GLReferenceCounter):
             batch_size = 996
             extra_start_pos = int(self._size / batch_size) * batch_size  # leftovers.
             extra_count = self._size - extra_start_pos
-            for i in xrange(0, int(self._size / batch_size)):
+            for i in range(0, int(self._size / batch_size)):
                 glDrawArrays(self._render_type, i * batch_size, batch_size)
             glDrawArrays(self._render_type, extra_start_pos, extra_count)
 
@@ -326,7 +326,7 @@ def load_gl_texture(filename):
     alpha_data = img.GetAlphaData()
     if alpha_data is not None:
         data = ''
-        for i in xrange(0, len(alpha_data)):
+        for i in range(0, len(alpha_data)):
             data += rgb_data[i * 3:i * 3 + 3] + alpha_data[i]
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img.GetWidth(),
                      img.GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, data)

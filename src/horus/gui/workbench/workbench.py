@@ -5,6 +5,7 @@ __author__ = 'Jesús Arroyo Torrens <jesus.arroyo@bq.com>'
 __copyright__ = 'Copyright (C) 2014-2016 Mundo Reader S.L.'
 __license__ = 'GNU General Public License v2 http://www.gnu.org/licenses/gpl2.html'
 
+import wx
 import wx._core
 import wx.lib.scrolledpanel
 from collections import OrderedDict
@@ -38,7 +39,7 @@ class Workbench(wx.Panel):
         vsbox.Add(self.panels_collection, 1, wx.ALL | wx.EXPAND, 0)
         self.scroll_panel.SetSizer(vsbox)
         vsbox.Fit(self.scroll_panel)
-        panel_size = self.scroll_panel.GetSize()[0] + wx.SystemSettings_GetMetric(wx.SYS_VSCROLL_X)
+        panel_size = self.scroll_panel.GetSize()[0] + wx.SystemSettings.GetMetric(wx.SYS_VSCROLL_X)
         self.scroll_panel.SetMinSize((panel_size, -1))
         self.scroll_panel.Disable()
 
@@ -89,12 +90,12 @@ class Workbench(wx.Panel):
     def on_connect(self):
         if driver.is_connected:
             self.setup_engine()
-            for _, p in self.pages_collection.iteritems():
+            for _, p in self.pages_collection.items():
                 p.Enable()
             self.on_open()
 
     def on_disconnect(self):
-        for _, p in self.pages_collection.iteritems():
+        for _, p in self.pages_collection.items():
             p.Disable()
         self.on_close()
         self.disable_content()

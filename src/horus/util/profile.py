@@ -74,18 +74,19 @@ class Settings(collections.MutableMapping):
         #    return
         setting_type = self.get_setting(key)._type
         try:
-            if setting_type == types.BooleanType:
+            if setting_type == type(bool):
                 value = bool(value)
-            elif setting_type == types.IntType:
+            elif setting_type == type(int):
                 value = int(value)
-            elif setting_type == types.FloatType:
+            elif setting_type == type(float):
                 value = float(value)
-            elif setting_type == types.UnicodeType:
-                value = unicode(value)
-            elif setting_type == types.ListType:
+            elif setting_type == type(str):
+                value = str(value)
+            elif setting_type == type(list):
                 value = value
             elif setting_type == np.ndarray:
                 value = np.asarray(value)
+
         except:
             raise ValueError("Unable to cast setting %s to type %s" % (key, setting_type))
         else:
@@ -178,7 +179,7 @@ class Settings(collections.MutableMapping):
         _('Low')
         self._add_setting(
             Setting('luminosity', _('Luminosity'), 'profile_settings',
-                    unicode, u'Medium', possible_values=(u'High', u'Medium', u'Low')))
+                    str, u'Medium', possible_values=(u'High', u'Medium', u'Low')))
         self._add_setting(
             Setting('brightness_control', _('Brightness'), 'profile_settings',
                     int, 128, min_value=0, max_value=255))
@@ -206,7 +207,7 @@ class Settings(collections.MutableMapping):
 
         self._add_setting(
             Setting('current_panel_control', u'camera_control', 'profile_settings',
-                    unicode, u'camera_control',
+                    str, u'camera_control',
                     possible_values=(u'camera_control', u'laser_control',
                                      u'ldr_value', u'motor_control', u'gcode_control')))
 
@@ -215,7 +216,7 @@ class Settings(collections.MutableMapping):
         _('Laser')
         self._add_setting(
             Setting('capture_mode_scanning', _('Capture mode'), 'profile_settings',
-                    unicode, u'Texture', possible_values=(u'Texture', u'Laser')))
+                    str, u'Texture', possible_values=(u'Texture', u'Laser')))
 
         self._add_setting(
             Setting('brightness_texture_scanning', _('Brightness'), 'profile_settings',
@@ -248,7 +249,7 @@ class Settings(collections.MutableMapping):
 
         self._add_setting(
             Setting('red_channel_scanning', _('Red channel'), 'profile_settings',
-                    unicode, u'R (RGB)',
+                    str, u'R (RGB)',
                     possible_values=(u'R (RGB)', u'Cr (YCrCb)', u'U (YUV)')))
         self._add_setting(
             Setting('threshold_enable_scanning', _('Enable threshold'),
@@ -270,7 +271,7 @@ class Settings(collections.MutableMapping):
                     int, 8, min_value=0, max_value=30))
         self._add_setting(
             Setting('refinement_scanning', _('Refinement'), 'profile_settings',
-                    unicode, u'SGF',
+                    str, u'SGF',
                     possible_values=(u'None', u'SGF')))
         _('Open')
         _('Enable open')
@@ -280,7 +281,7 @@ class Settings(collections.MutableMapping):
         _('Laser')
         self._add_setting(
             Setting('capture_mode_calibration', _('Capture mode'), 'profile_settings',
-                    unicode, u'Pattern', possible_values=(u'Pattern', u'Laser')))
+                    str, u'Pattern', possible_values=(u'Pattern', u'Laser')))
 
         self._add_setting(
             Setting('brightness_pattern_calibration', _('Brightness'), 'profile_settings',
@@ -313,7 +314,7 @@ class Settings(collections.MutableMapping):
 
         self._add_setting(
             Setting('red_channel_calibration', _('Red channel'), 'profile_settings',
-                    unicode, u'R (RGB)',
+                    str, u'R (RGB)',
                     possible_values=(u'R (RGB)', u'Cr (YCrCb)', u'U (YUV)')))
         self._add_setting(
             Setting('threshold_enable_calibration', _('Enable threshold'),
@@ -335,17 +336,17 @@ class Settings(collections.MutableMapping):
                     int, 5, min_value=0, max_value=30))
         self._add_setting(
             Setting('refinement_calibration', _('Refinement'), 'profile_settings',
-                    unicode, u'RANSAC',
+                    str, u'RANSAC',
                     possible_values=(u'None', u'SGF', u'RANSAC')))
 
         self._add_setting(
             Setting('current_video_mode_adjustment', u'Texture', 'profile_settings',
-                    unicode, u'Texture',
+                    str, u'Texture',
                     possible_values=(u'Texture', u'Pattern', u'Laser', u'Gray')))
 
         self._add_setting(
             Setting('current_panel_adjustment', u'scan_capture', 'profile_settings',
-                    unicode, u'scan_capture',
+                    str, u'scan_capture',
                     possible_values=(u'scan_capture', u'scan_segmentation',
                                      u'calibration_capture', u'calibration_segmentation')))
 
@@ -357,7 +358,7 @@ class Settings(collections.MutableMapping):
         _('Both')
         self._add_setting(
             Setting('use_laser', _('Use laser'), 'profile_settings',
-                    unicode, u'Both', possible_values=(u'Left', u'Right', u'Both')))
+                    str, u'Both', possible_values=(u'Left', u'Right', u'Both')))
 
         self._add_setting(
             Setting('motor_step_scanning', _(u'Step (º)'), 'profile_settings',
@@ -381,7 +382,7 @@ class Settings(collections.MutableMapping):
                     int, 200, min_value=0, max_value=250))
         self._add_setting(
             Setting('point_cloud_color', _('Choose point cloud color'), 'profile_settings',
-                    unicode, u'AAAAAA'))
+                    str, u'AAAAAA'))
 
         self._add_setting(
             Setting('scan_sleep', _(u'Wait time in each scan interval'), 'profile_settings',
@@ -394,28 +395,28 @@ class Settings(collections.MutableMapping):
         _('Line')
         self._add_setting(
             Setting('video_scanning', _('Video'), 'profile_settings',
-                    unicode, u'Texture', possible_values=(u'Texture', u'Laser', u'Gray', u'Line')))
+                    str, u'Texture', possible_values=(u'Texture', u'Laser', u'Gray', u'Line')))
 
         self._add_setting(
-            Setting('save_image_button', _('Save image'), 'profile_settings', unicode, u''))
+            Setting('save_image_button', _('Save image'), 'profile_settings', str, u''))
         self._add_setting(
-            Setting('left_button', _('Left'), 'profile_settings', unicode, u''))
+            Setting('left_button', _('Left'), 'profile_settings', str, u''))
         self._add_setting(
-            Setting('right_button', _('Right'), 'profile_settings', unicode, u''))
+            Setting('right_button', _('Right'), 'profile_settings', str, u''))
         self._add_setting(
-            Setting('move_button', _('Move'), 'profile_settings', unicode, u''))
+            Setting('move_button', _('Move'), 'profile_settings', str, u''))
         self._add_setting(
-            Setting('enable_button', _('Enable'), 'profile_settings', unicode, u''))
+            Setting('enable_button', _('Enable'), 'profile_settings', str, u''))
         self._add_setting(
-            Setting('reset_origin_button', _('Reset origin'), 'profile_settings', unicode, u''))
+            Setting('reset_origin_button', _('Reset origin'), 'profile_settings', str, u''))
         self._add_setting(
-            Setting('gcode_gui', _('Send'), 'profile_settings', unicode, u''))
+            Setting('gcode_gui', _('Send'), 'profile_settings', str, u''))
         self._add_setting(
-            Setting('ldr_value', _('Send'), 'profile_settings', unicode, u''))
+            Setting('ldr_value', _('Send'), 'profile_settings', str, u''))
         self._add_setting(
-            Setting('autocheck_button', _('Perform autocheck'), 'profile_settings', unicode, u''))
+            Setting('autocheck_button', _('Perform autocheck'), 'profile_settings', str, u''))
         self._add_setting(
-            Setting('set_resolution_button', _('Set resolution'), 'profile_settings', unicode, u''))
+            Setting('set_resolution_button', _('Set resolution'), 'profile_settings', str, u''))
 
         # -- Calibration Settings
 
@@ -486,14 +487,14 @@ class Settings(collections.MutableMapping):
                     np.ndarray, np.ndarray(shape=(3,), buffer=np.array([-5.0, 90.0, 320.0]))))
 
         self._add_setting(
-            Setting('laser_triangulation_hash', '', 'calibration_settings', unicode, u''))
+            Setting('laser_triangulation_hash', '', 'calibration_settings', str, u''))
 
         self._add_setting(
-            Setting('platform_extrinsics_hash', '', 'calibration_settings', unicode, u''))
+            Setting('platform_extrinsics_hash', '', 'calibration_settings', str, u''))
 
         self._add_setting(
             Setting('current_panel_calibration', u'pattern_settings', 'profile_settings',
-                    unicode, u'pattern_settings',
+                    str, u'pattern_settings',
                     possible_values=(u'pattern_settings', u'camera_intrinsics',
                                      u'scanner_autocheck', u'laser_triangulation',
                                      u'platform_extrinsics', u'video_settings')))
@@ -513,10 +514,10 @@ class Settings(collections.MutableMapping):
         _('Rectangular')
         self._add_setting(
             Setting('machine_shape', _('Machine shape'), 'machine_settings',
-                    unicode, u'Circular', possible_values=(u'Circular', u'Rectangular')))
+                    str, u'Circular', possible_values=(u'Circular', u'Rectangular')))
         self._add_setting(
             Setting('machine_model_path', _('Machine model'), 'machine_settings',
-                    unicode, unicode(resources.get_path_for_mesh('ciclop_platform.stl'))))
+                    str, str(resources.get_path_for_mesh('ciclop_platform.stl'))))
         # self._add_setting(
         #     Setting('roi_width', _('Width (mm)'), 'machine_settings',
         #             int, 200, min_value=0, max_value=250))
@@ -526,26 +527,26 @@ class Settings(collections.MutableMapping):
 
         self._add_setting(
             Setting('current_panel_scanning', u'scan_parameters', 'profile_settings',
-                    unicode, u'scan_parameters',
+                    str, u'scan_parameters',
                     possible_values=(u'scan_parameters', u'rotating_platform',
                                      u'point_cloud_roi', u'point_cloud_color')))
 
         # -- Preferences
 
         self._add_setting(
-            Setting('serial_name', _('Serial name'), 'preferences', unicode, u''))
+            Setting('serial_name', _('Serial name'), 'preferences', str, u''))
         self._add_setting(
             Setting('baud_rate', _('Baud rate'), 'preferences', int, 115200,
                     possible_values=(9600, 14400, 19200, 38400, 57600, 115200)))
         self._add_setting(
-            Setting('camera_id', _('Camera ID'), 'preferences', unicode, u''))
+            Setting('camera_id', _('Camera ID'), 'preferences', str, u''))
         self._add_setting(
-            Setting('board', _('Board'), 'preferences', unicode, u'BT ATmega328',
+            Setting('board', _('Board'), 'preferences', str, u'BT ATmega328',
                     possible_values=(u'Arduino Uno', u'BT ATmega328')))
         self._add_setting(
             Setting('invert_motor', _('Invert motor'), 'preferences', bool, False))
         self._add_setting(
-            Setting('language', _('Language'), 'preferences', unicode, u'English',
+            Setting('language', _('Language'), 'preferences', str, u'English',
                     possible_values=(u'English', u'Español', u'Français',
                                      u'Deutsch', u'Italiano', u'Português'),
                     tooltip=_('Change the language of Horus. '
@@ -579,7 +580,7 @@ class Settings(collections.MutableMapping):
 
         # Hack to translate combo boxes:
         self._add_setting(
-            Setting('workbench', _('Workbench'), 'preferences', unicode, u'scanning',
+            Setting('workbench', _('Workbench'), 'preferences', str, u'scanning',
                     possible_values=(u'control', u'adjustment', u'calibration', u'scanning')))
         self._add_setting(
             Setting('show_welcome', _('Show welcome'), 'preferences', bool, True))
@@ -617,14 +618,14 @@ class Settings(collections.MutableMapping):
             Setting('last_files', _('Last files'), 'preferences', list, []))
         # TODO: Set this default value
         self._add_setting(
-            Setting('last_file', _('Last file'), 'preferences', unicode, u''))
+            Setting('last_file', _('Last file'), 'preferences', str, u''))
         # TODO: Set this default value
         self._add_setting(
-            Setting('last_profile', _('Last profile'), 'preferences', unicode, u''))
+            Setting('last_profile', _('Last profile'), 'preferences', str, u''))
         self._add_setting(
-            Setting('model_color', _('Model color'), 'preferences', unicode, u'888888'))
+            Setting('model_color', _('Model color'), 'preferences', str, u'888888'))
         self._add_setting(
-            Setting('last_clear_log_date', _('Last clear log date'), 'preferences', unicode, u''))
+            Setting('last_clear_log_date', _('Last clear log date'), 'preferences', str, u''))
 
 
 class Setting(object):
@@ -805,7 +806,7 @@ def get_size_polygons(size, machine_shape):
     if machine_shape == 'Circular':
         circle = []
         steps = 32
-        for n in xrange(0, steps):
+        for n in range(0, steps):
             circle.append([math.cos(float(n) / steps * 2 * math.pi) * size[0] / 2,
                            math.sin(float(n) / steps * 2 * math.pi) * size[1] / 2])
         ret.append(np.array(circle, np.float32))

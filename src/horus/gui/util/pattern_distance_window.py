@@ -35,7 +35,7 @@ class PatternDistanceWindow(wx.Dialog):
         self.label = wx.StaticText(self, label=_("Pattern distance (mm)"))
         self.label.SetToolTip(wx.ToolTip(tooltip))
         self.text_box = wx.TextCtrl(
-            self, value=str(profile.settings['pattern_origin_distance']))
+            self, value=bytes(profile.settings['pattern_origin_distance']))
         self.ok_button = wx.Button(self, label=_("Accept"))
         self.cancel_button = wx.Button(self, label=_("Cancel"))
 

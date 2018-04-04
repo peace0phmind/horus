@@ -52,7 +52,7 @@ class ComboCalibration(MovingCalibration):
             if (angle > 65 and angle < 115):
                 self.image_capture.flush_laser()
                 self.image_capture.flush_laser()
-                for i in xrange(2):
+                for i in range(2):
                     image = self.image_capture.capture_laser(i)
                     image = self.image_detection.pattern_mask(image, corners)
                     self.image = image
@@ -83,15 +83,15 @@ class ComboCalibration(MovingCalibration):
 
         # Laser triangulation
         # Save point clouds
-        for i in xrange(2):
-            laser_triangulation.save_point_cloud('PC' + str(i) + '.ply', self._point_cloud[i])
+        for i in range(2):
+            laser_triangulation.save_point_cloud('PC' + bytes(i) + '.ply', self._point_cloud[i])
 
         self.distance = [None, None]
         self.normal = [None, None]
         self.std = [None, None]
 
         # Compute planes
-        for i in xrange(2):
+        for i in range(2):
             if self._is_calibrating:
                 plane = laser_triangulation.compute_plane(i, self._point_cloud[i])
                 self.distance[i], self.normal[i], self.std[i] = plane
@@ -114,9 +114,9 @@ class ComboCalibration(MovingCalibration):
             self.t = center - self.pattern.origin_distance * np.array(normal)
 
             logger.info("Platform calibration ")
-            logger.info(" Translation: " + str(self.t))
-            logger.info(" Rotation: " + str(self.R).replace('\n', ''))
-            logger.info(" Normal: " + str(normal))
+            logger.info(" Translation: " + bytes(self.t))
+            logger.info(" Rotation: " + bytes(self.R).replace('\n', ''))
+            logger.info(" Normal: " + bytes(normal))
 
         # Return response
         result = True
@@ -148,7 +148,7 @@ class ComboCalibration(MovingCalibration):
         return response
 
     def accept(self):
-        for i in xrange(2):
+        for i in range(2):
             self.calibration_data.laser_planes[i].distance = self.distance[i]
             self.calibration_data.laser_planes[i].normal = self.normal[i]
         self.calibration_data.platform_rotation = self.R

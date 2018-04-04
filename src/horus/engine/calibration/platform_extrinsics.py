@@ -87,9 +87,9 @@ class PlatformExtrinsics(MovingCalibration):
             self.t = center - self.pattern.origin_distance * np.array(normal)
 
             logger.info("Platform calibration ")
-            logger.info(" Translation: " + str(self.t))
-            logger.info(" Rotation: " + str(self.R).replace('\n', ''))
-            logger.info(" Normal: " + str(normal))
+            logger.info(" Translation: " + bytes(self.t))
+            logger.info(" Rotation: " + bytes(self.R).replace('\n', ''))
+            logger.info(" Normal: " + bytes(normal))
 
         if self._is_calibrating and self.t is not None and \
            np.linalg.norm(self.t - estimated_t) < 100:

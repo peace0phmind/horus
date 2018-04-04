@@ -40,9 +40,9 @@ class PointCloudROI(object):
         self._center_v = 0
         self._circle_resolution = 30
         self._circle_array = np.array([[np.cos(i * 2 * np.pi / self._circle_resolution)
-                                        for i in xrange(self._circle_resolution)],
+                                        for i in range(self._circle_resolution)],
                                        [np.sin(i * 2 * np.pi / self._circle_resolution)
-                                        for i in xrange(self._circle_resolution)],
+                                        for i in range(self._circle_resolution)],
                                        np.zeros(self._circle_resolution)])
 
     def set_diameter(self, value):

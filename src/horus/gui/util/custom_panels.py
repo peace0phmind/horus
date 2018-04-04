@@ -33,7 +33,7 @@ class ExpandableCollection(wx.Panel):
     def init_panels_layout(self):
         values = self.expandable_panels.values()
         if len(values) > 0:
-            self._expand_callback(values[0])
+            self._expand_callback(list(values)[0])
 
     def _expand_callback(self, selected_panel):
         if sys.is_windows():
@@ -550,7 +550,7 @@ class IntLabel(ControlPanel):
         # Elements
         label = wx.StaticText(self, size=(130, -1), label=_(self.setting._label))
         self.control = wx.StaticText(self, size=(150, -1), style=wx.TE_RIGHT)
-        self.control.SetLabel(str(profile.settings[self.name]))
+        self.control.SetLabel(bytes(profile.settings[self.name]))
 
         # Layout
         hbox = wx.BoxSizer(wx.HORIZONTAL)
@@ -561,7 +561,7 @@ class IntLabel(ControlPanel):
 
     def update_from_profile(self):
         value = profile.settings[self.name]
-        self.control.SetLabel(str(value))
+        self.control.SetLabel(bytes(value))
 
 
 class IntBox(wx.TextCtrl):
@@ -572,7 +572,7 @@ class IntBox(wx.TextCtrl):
 
     def SetValue(self, value):
         self.old_value = value
-        wx.TextCtrl.SetValue(self, str(int(value)))
+        wx.TextCtrl.SetValue(self, bytes(int(value)))
 
     def GetValue(self):
         try:
@@ -790,9 +790,9 @@ class FloatStaticArray(wx.Panel):
             for j in range(self.c):
                 self.texts[i][j] = wx.StaticText(self, size=self.size, style=wx.TE_RIGHT)
                 if self.r == 1:
-                    self.texts[i][j].SetLabel(str(round(self.value[j], 4)))
+                    self.texts[i][j].SetLabel(bytes(round(self.value[j], 4)))
                 else:
-                    self.texts[i][j].SetLabel(str(round(self.value[i][j], 4)))
+                    self.texts[i][j].SetLabel(bytes(round(self.value[i][j], 4)))
                 jbox.Add(self.texts[i][j], 1, wx.ALL | wx.EXPAND, 2)
             ibox.Add(jbox, 1, wx.ALL | wx.EXPAND, 1)
         self.SetSizer(ibox)
@@ -803,9 +803,9 @@ class FloatStaticArray(wx.Panel):
         for i in range(self.r):
             for j in range(self.c):
                 if self.r == 1:
-                    self.texts[i][j].SetLabel(str(round(self.value[j], 4)))
+                    self.texts[i][j].SetLabel(bytes(round(self.value[j], 4)))
                 else:
-                    self.texts[i][j].SetLabel(str(round(self.value[i][j], 4)))
+                    self.texts[i][j].SetLabel(bytes(round(self.value[i][j], 4)))
 
 
 class FloatLabelArray(ControlPanel):

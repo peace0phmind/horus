@@ -193,7 +193,7 @@ class CameraIntrinsics3DPlot(wx.Panel):
 
         c = np.array([[30, 0, 0], [0, 30, 0], [0, 0, -30]])
 
-        self.ax.text(-100, 200, 0, str(round(error, 5)), fontsize=15)
+        self.ax.text(-100, 200, 0, bytes(round(error, 5)), fontsize=15)
 
         for ind, transvector in enumerate(rvecs):
 

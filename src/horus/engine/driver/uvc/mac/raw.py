@@ -15,7 +15,7 @@
 '''
 
 from ctypes import *
-from cf_string import CFSTR, cfstring_to_string_release
+from .cf_string import CFSTR, cfstring_to_string_release
 import os,sys
 
 #logging
@@ -249,32 +249,32 @@ def uvccGetVal(control,camera):
 if __name__ == '__main__':
     uvccInit()
     cam_n,cam_list = uvccGetCamList()
-    print "detected cameras:",cam_n
+    print("detected cameras:",cam_n)
     for i in range(cam_n):
-        print "idVendor",hex(cam_list[i].contents.devDesc.idVendor)
-        print "idProduct",hex(cam_list[i].contents.devDesc.idProduct)
-        print "Location", cam_list[i].contents.idLocation
-        print "Product Name:",uvccCamProduct(cam_list[i].contents)
-        print "Product Serial:",uvccCamSerialNumber(cam_list[i].contents)
-        print "Manufacturer:", uvccCamManufacturer(cam_list[i].contents)
-        print "uId:",uvccCamQTUniqueID(cam_list[i].contents)
+        print("idVendor",hex(cam_list[i].contents.devDesc.idVendor))
+        print("idProduct",hex(cam_list[i].contents.devDesc.idProduct))
+        print("Location", cam_list[i].contents.idLocation)
+        print("Product Name:",uvccCamProduct(cam_list[i].contents))
+        print("Product Serial:",uvccCamSerialNumber(cam_list[i].contents))
+        print("Manufacturer:", uvccCamManufacturer(cam_list[i].contents))
+        print("uId:",uvccCamQTUniqueID(cam_list[i].contents))
         uid = uvccCamQTUniqueID(cam_list[i].contents)
         # manually construct uId: (it looks similar to this: 0x1a11000005ac8510)
         # uid = "0x%08x%04x%04x" %(cam_list[i].contents.idLocation,cam_list[i].contents.mId.contents.idVendor,cam_list[i].contents.mId.contents.idProduct)
 
-    # print uvccSendRequest("UVCC_REQ_BRIGHTNESS_ABS",UVC_GET_DEF,cam_list[cam_n-1])
-    # print uvccGetVal("UVCC_REQ_BRIGHTNESS_ABS",cam_list[cam_n-1])
-    # print set_val(0,"UVCC_REQ_BRIGHTNESS_ABS",cam_list[cam_n-1])
+    # print(uvccSendRequest("UVCC_REQ_BRIGHTNESS_ABS",UVC_GET_DEF,cam_list[cam_n-1]))
+    # print(uvccGetVal("UVCC_REQ_BRIGHTNESS_ABS",cam_list[cam_n-1]))
+    # print(set_val(0,"UVCC_REQ_BRIGHTNESS_ABS",cam_list[cam_n-1]))
     __uvcc_dll.uvccReleaseCamList(cam_list,cam_n)
     cam = uvccGetCamWithQTUniqueID(uid)
     # # cam = uvccGetCamsWithModelID(mid)
     if cam:
         uvccOpenCam(cam)
-        print "Location", cam.contents.idLocation
-        print "Product Name:",uvccCamProduct(cam)
-        print uvccRequestInfo("UVCC_REQ_EXPOSURE_ABS",cam)
+        print("Location", cam.contents.idLocation)
+        print("Product Name:",uvccCamProduct(cam))
+        print(uvccRequestInfo("UVCC_REQ_EXPOSURE_ABS",cam))
         # val =  uvccGetVal("UVCC_REQ_BRIGHTNESS_ABS",cam)
-        # print uvccSetVal(val-1,"UVCC_REQ_BRIGHTNESS_ABS",cam)
+        # print(uvccSetVal(val-1,"UVCC_REQ_BRIGHTNESS_ABS",cam))
         uvccCloseCam(cam)
         uvccReleaseCam(cam)
     __uvcc_dll.uvccExit()

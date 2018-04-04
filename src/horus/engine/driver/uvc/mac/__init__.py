@@ -23,7 +23,7 @@ Three classes:
     Control is the actual Control with methods for getting and setting them.
 """
 import sys
-from raw import *
+from .raw import *
 
 #logging
 import logging

@@ -6,7 +6,7 @@ __copyright__ = 'Copyright (C) 2014-2016 Mundo Reader S.L.'
 __license__ = 'GNU General Public License v2 http://www.gnu.org/licenses/gpl2.html'
 
 import os
-import resources
+from . import resources
 from subprocess import Popen, PIPE, STDOUT
 
 import logging
@@ -67,7 +67,7 @@ class AvrDude(object):
         if clear_eeprom:
             hex_path = resources.get_path_for_firmware("eeprom_clear.hex")
         flags = ['-C', '%(avrconf)s', '-c', self.protocol, '-p', self.microcontroller,
-                 '-P', '%s' % self.port, '-b', str(self.baud_rate), '-D', '-U',
+                 '-P', '%s' % self.port, '-b', bytes(self.baud_rate), '-D', '-U',
                  'flash:w:%s' % os.path.basename(hex_path)]
         try:
             cwd = os.getcwd()

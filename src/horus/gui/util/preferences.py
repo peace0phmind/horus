@@ -53,7 +53,7 @@ class PreferencesDialog(wx.Dialog):
 
         if not self.basic:
             self.baud_rate_label = wx.StaticText(self, label=_("Baud rate"))
-            self.baud_rates = [str(b) for b in profile.settings.get_possible_values('baud_rate')]
+            self.baud_rates = [bytes(b) for b in profile.settings.get_possible_values('baud_rate')]
             self.baud_rate_combo = wx.ComboBox(
                 self, choices=self.baud_rates, size=(170, -1), style=wx.CB_READONLY)
 
@@ -98,7 +98,7 @@ class PreferencesDialog(wx.Dialog):
                 self.serial_name_combo.SetValue(current_serial)
 
         if not self.basic:
-            current_baud_rate = str(profile.settings['baud_rate'])
+            current_baud_rate = bytes(profile.settings['baud_rate'])
             self.baud_rate_combo.SetValue(current_baud_rate)
 
             current_board = profile.settings['board']

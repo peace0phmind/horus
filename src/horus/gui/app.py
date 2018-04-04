@@ -95,7 +95,7 @@ class HorusApp(wx.App):
     def _update_log_date(self):
         date_format = '%Y-%m-%d %H:%M:%S'
         current_log_date = datetime.datetime.now()
-        profile.settings['last_clear_log_date'] = str(current_log_date.strftime(date_format))
+        profile.settings['last_clear_log_date'] = current_log_date.strftime(date_format)
 
     def MacReopenApp(self):
         self.GetTopWindow().Raise()

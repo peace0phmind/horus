@@ -226,7 +226,7 @@ class ConnectionPage(WizardPage):
             dlg.ShowModal()
             dlg.Destroy()
         else:
-            self.result_label.SetLabel(str(_(result)))
+            self.result_label.SetLabel(bytes(_(result)))
             if isinstance(result, PatternNotDetected):
                 dlg = wx.MessageDialog(
                     self, _("Please, put the pattern on the platform. "

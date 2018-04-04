@@ -214,8 +214,8 @@ class LaserTriangulation3DPlot(wx.Panel):
         self.ax.set_ylabel('Z')
         self.ax.set_zlabel('Y')
 
-        self.ax.text(-100, 0, 0, str(round(stdL, 5)), fontsize=15)
-        self.ax.text(100, 0, 0, str(round(stdR, 5)), fontsize=15)
+        self.ax.text(-100, 0, 0, bytes(round(stdL, 5)), fontsize=15)
+        self.ax.text(100, 0, 0, bytes(round(stdR, 5)), fontsize=15)
 
         self.ax.set_xlim(-150, 150)
         self.ax.set_ylim(0, 400)

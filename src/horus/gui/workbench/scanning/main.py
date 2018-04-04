@@ -274,7 +274,7 @@ class ScanningWorkbench(Workbench):
                     self,
                     "Low exposure values can cause a timing issue at the USB stack level on "
                     "v4l2_ioctl function in VIDIOC_S_CTRL mode. This is a Logitech issue on Linux",
-                    str(result), wx.OK | wx.ICON_ERROR)
+                    bytes(result), wx.OK | wx.ICON_ERROR)
                 dlg.ShowModal()
                 dlg.Destroy()
 

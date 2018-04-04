@@ -17,8 +17,8 @@ logger = logging.getLogger(__name__)
 system = platform.system()
 
 if system == 'Darwin':
-    import uvc
-    from uvc.mac import *
+    from . import uvc
+    from .uvc.mac import *
 
 
 class WrongCamera(Exception):
@@ -196,7 +196,7 @@ class Camera(object):
                         e = time.time()
                 else:
                     if flush > 0:
-                        for i in xrange(flush):
+                        for i in range(flush):
                             self._capture.read()
                             # Note: Windows needs read() to perform
                             #       the flush instead of grab()
@@ -387,7 +387,7 @@ class Camera(object):
         return ret
 
     def _count_cameras(self):
-        for i in xrange(5):
+        for i in range(5):
             cap = cv2.VideoCapture(i)
             res = not cap.isOpened()
             cap.release()
@@ -400,8 +400,8 @@ class Camera(object):
         if system == 'Windows':
             if not self._is_connected:
                 count = self._count_cameras()
-                for i in xrange(count):
-                    baselist.append(str(i))
+                for i in range(count):
+                    baselist.append(bytes(i))
                 self._video_list = baselist
         elif system == 'Darwin':
             for device in uvc.mac.Camera_List():

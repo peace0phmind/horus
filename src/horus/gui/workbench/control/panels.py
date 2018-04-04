@@ -147,10 +147,10 @@ class LDRSection(ControlPanel):
         self.wait_cursor = wx.BusyCursor()
         self.ldr_buttons[index].Disable()
         if self.engine_callback is not None:
-            ret = self.engine_callback(str(index))
+            ret = self.engine_callback(bytes(index))
         wx.CallAfter(self.ldr_buttons[index].Enable)
         if ret is not None:
-            wx.CallAfter(lambda: self.ldr_labels[index].SetLabel(str(ret)))
+            wx.CallAfter(lambda: self.ldr_labels[index].SetLabel(bytes(ret)))
         if hasattr(self, 'wait_cursor'):
             del self.wait_cursor
 
@@ -224,7 +224,7 @@ class GcodeSection(ControlPanel):
         self.Layout()
 
         # Events
-        self.request.Bind(wx.wx.EVT_KEY_DOWN, self.on_key_pressed)
+        self.request.Bind(wx.EVT_KEY_DOWN, self.on_key_pressed)
         self.control.Bind(wx.EVT_BUTTON, self.on_button_clicked)
 
     def on_key_pressed(self, event):
@@ -240,7 +240,7 @@ class GcodeSection(ControlPanel):
         self.wait_cursor = wx.BusyCursor()
         if self.engine_callback is not None:
             self.engine_callback(
-                str(self.request.GetValue()), lambda r: wx.CallAfter(self.on_finish_callback, r))
+                bytes(self.request.GetValue()), lambda r: wx.CallAfter(self.on_finish_callback, r))
 
     def on_finish_callback(self, ret):
         self.control.Enable()

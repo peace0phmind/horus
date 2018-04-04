@@ -52,7 +52,7 @@ class LaserTriangulation(MovingCalibration):
             self.image_capture.flush_laser()
             if plane is not None:
                 distance, normal, corners = plane
-                for i in xrange(2):
+                for i in range(2):
                     image = self.image_capture.capture_laser(i)
                     image = self.image_detection.pattern_mask(image, corners)
                     self.image = image
@@ -74,15 +74,15 @@ class LaserTriangulation(MovingCalibration):
         self.image_capture.stream = True
 
         # Save point clouds
-        for i in xrange(2):
-            save_point_cloud('PC' + str(i) + '.ply', self._point_cloud[i])
+        for i in range(2):
+            save_point_cloud('PC' + bytes(i) + '.ply', self._point_cloud[i])
 
         self.distance = [None, None]
         self.normal = [None, None]
         self.std = [None, None]
 
         # Compute planes
-        for i in xrange(2):
+        for i in range(2):
             if self._is_calibrating:
                 plane = compute_plane(i, self._point_cloud[i])
                 self.distance[i], self.normal[i], self.std[i] = plane
@@ -103,7 +103,7 @@ class LaserTriangulation(MovingCalibration):
         return response
 
     def accept(self):
-        for i in xrange(2):
+        for i in range(2):
             self.calibration_data.laser_planes[i].distance = self.distance[i]
             self.calibration_data.laser_planes[i].normal = self.normal[i]
 
@@ -115,11 +115,11 @@ def compute_plane(index, X):
         distance, normal, M = model
         std = np.dot(M.T, normal).std()
 
-        logger.info("Laser calibration " + str(index))
-        logger.info(" Distance: " + str(distance))
-        logger.info(" Normal: " + str(normal))
-        logger.info(" Standard deviation: " + str(std))
-        logger.info(" Point cloud size: " + str(len(inliers)))
+        logger.info("Laser calibration " + bytes(index))
+        logger.info(" Distance: " + bytes(distance))
+        logger.info(" Normal: " + bytes(normal))
+        logger.info(" Standard deviation: " + bytes(std))
+        logger.info(" Point cloud size: " + bytes(len(inliers)))
 
         return distance, normal, std
     else:
@@ -161,7 +161,7 @@ def ransac(data, model_class, min_samples, threshold, max_trials=500):
     best_inlier_num = 0
     best_inliers = None
     data_idx = np.arange(data.shape[0])
-    for _ in xrange(max_trials):
+    for _ in range(max_trials):
         sample = data[np.random.randint(0, data.shape[0], 3)]
         if model_class.is_degenerate(sample):
             continue

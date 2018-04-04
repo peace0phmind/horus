@@ -283,7 +283,7 @@ class MainWindow(wx.Frame):
                 pass
             date_format = '%Y-%m-%d %H:%M:%S'
             current_log_date = datetime.datetime.now()
-            profile.settings['last_clear_log_date'] = str(current_log_date.strftime(date_format))
+            profile.settings['last_clear_log_date'] = bytes(current_log_date.strftime(date_format))
 
     def on_export_log(self, event):
         dlg = wx.FileDialog(self, _("Select log file to save"),
@@ -323,12 +323,12 @@ class MainWindow(wx.Frame):
         if status:
             self.toolbar.toolbar.Enable()
             self.toolbar.combo.Enable()
-            for i in xrange(self.menu_bar.GetMenuCount()):
+            for i in range(self.menu_bar.GetMenuCount()):
                 self.menu_bar.EnableTop(i, True)
         else:
             self.toolbar.toolbar.Disable()
             self.toolbar.combo.Disable()
-            for i in xrange(self.menu_bar.GetMenuCount()):
+            for i in range(self.menu_bar.GetMenuCount()):
                 self.menu_bar.EnableTop(i, False)
 
     def append_last_file(self, last_file):
@@ -442,18 +442,18 @@ class MainWindow(wx.Frame):
         self.wait_cursor = wx.BusyCursor()
         self.toolbar.combo.SetValue(name)
         if sys.is_windows():
-            for key, wb in self.workbench.iteritems():
+            for key, wb in self.workbench.items():
                 if wb.name == name:
                     wb.Show()
                     profile.settings['workbench'] = key
-            for key, wb in self.workbench.iteritems():
+            for key, wb in self.workbench.items():
                 if wb.name != name:
                     wb.Hide()
         else:
-            for key, wb in self.workbench.iteritems():
+            for key, wb in self.workbench.items():
                 if wb.name != name:
                     wb.Hide()
-            for key, wb in self.workbench.iteritems():
+            for key, wb in self.workbench.items():
                 if wb.name == name:
                     wb.Show()
                     profile.settings['workbench'] = key
@@ -541,7 +541,7 @@ class MainWindow(wx.Frame):
         dlg.Destroy()
 
     def update_profile_to_all_controls(self):
-        for _, w in self.workbench.iteritems():
+        for _, w in self.workbench.items():
             w.update_controls()
         self.workbench[profile.settings['workbench']].update_controls()
 
@@ -596,7 +596,8 @@ class MainWindow(wx.Frame):
         current_video_id = profile.settings['camera_id']
         if len(video_list) > 0:
             if current_video_id not in video_list:
-                profile.settings['camera_id'] = unicode(video_list[0])
+                print(int(str(video_list[0])))
+                profile.settings['camera_id'] = str(video_list[0])
 
         if len(profile.settings['camera_id']):
             driver.camera.camera_id = int(profile.settings['camera_id'][-1:])

@@ -38,7 +38,7 @@ class CurrentVideo(object):
     def set_line(self, points, image):
         images = [None, None]
         if image is not None:
-            for i in xrange(2):
+            for i in range(2):
                 if points[i]:
                     images[i] = self._compute_line_image(points[i], image)
             image = self._combine_images(images)

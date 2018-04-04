@@ -8,11 +8,12 @@ __license__ = 'GNU General Public License v2 http://www.gnu.org/licenses/gpl2.ht
 
 import time
 import wx._core
+import wx.adv
 
 from horus.util.resources import get_path_for_image
 
 
-class SplashScreen(wx.SplashScreen):
+class SplashScreen(wx.adv.SplashScreen):
 
     def __init__(self, callback):
         self.callback = callback

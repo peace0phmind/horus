@@ -30,7 +30,7 @@ import tempfile
 import optparse
 
 
-class Path(str):
+class Path(bytes):
     def __enter__(self):
         return self
 

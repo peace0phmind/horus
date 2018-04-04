@@ -110,7 +110,7 @@ class SceneView(opengl_gui.glGuiPanel):
         # TODO: optimize
         if self._object is not None:
             if self._object._mesh is not None:
-                for i in xrange(point.shape[1]):
+                for i in range(point.shape[1]):
                     self._object._mesh._add_vertex(
                         point[0][i], point[1][i], point[2][i],
                         color[0][i], color[1][i], color[2][i])
@@ -526,7 +526,7 @@ class SceneView(opengl_gui.glGuiPanel):
             #                  self._mouse_y, 1, 1, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8)[0][0] >> 8
             f = glReadPixels(self._mouse_x, self.GetSize().GetHeight() - 1 -
                              self._mouse_y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT)[0][0]
-            # self.GetTopLevelParent().SetTitle(hex(n) + " " + str(f))
+            # self.GetTopLevelParent().SetTitle(hex(n) + " " + bytes(f))
             self._mouse_3d_pos = opengl_helpers.unproject(
                 self._mouse_x, self._viewport[1] + self._viewport[3] - self._mouse_y,
                 f, self._model_matrix, self._proj_matrix, self._viewport)
@@ -646,7 +646,7 @@ class SceneView(opengl_gui.glGuiPanel):
 
             # Draw the sides of the build volume.
             glBegin(GL_QUADS)
-            for n in xrange(0, len(polys[0])):
+            for n in range(0, len(polys[0])):
                 if machine_shape == 'Rectangular':
                     if n % 2 == 0:
                         glColor4ub(5, 171, 231, 96)
