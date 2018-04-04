@@ -92,7 +92,19 @@ In the project directory, execute the command:
 pythonw horus
 ```
 
-## 4. Build packages
+## 4. Debug source code use vscode
+open launch.json add config block
+```
+        {
+            "name": "Pythonw: Current File",
+            "type": "python",
+            "pythonPath": "pythonw",
+            "request": "launch",
+            "program": "${file}"
+        },
+```
+
+## 5. Build packages
 
 Horus development comes with a script *package.sh*. This script generates a final release package. You should not need it during development, unless you are changing the release process. If you want to distribute your own version of Horus, then the *package.sh* script will allow you to do that.
 

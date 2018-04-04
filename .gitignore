@@ -30,3 +30,4 @@ horus.log
 version
 doc/readthedocs/_build
 src/horus/engine/driver/uvc/mac/uvcc.so
+.vscode/
