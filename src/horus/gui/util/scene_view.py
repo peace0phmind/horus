@@ -70,7 +70,7 @@ class SceneView(opengl_gui.glGuiPanel):
         self.update_profile_to_controls()
 
     def on_show(self, event):
-        if event.GetShow():
+        if event.IsShown():
             self.GetParent().Layout()
             self.Layout()
 

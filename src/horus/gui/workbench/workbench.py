@@ -102,7 +102,7 @@ class Workbench(wx.Panel):
         self.reset()
 
     def on_show(self, event):
-        if event.GetShow():
+        if event.IsShown():
             if driver.is_connected:
                 self.setup_engine()
                 self.on_open()

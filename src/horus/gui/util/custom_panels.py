@@ -225,8 +225,8 @@ class TitleText(wx.Panel):
         self.line = wx.StaticLine(self)
 
         if hand_cursor:
-            self.title.SetCursor(wx.StockCursor(wx.CURSOR_HAND))
-            self.line.SetCursor(wx.StockCursor(wx.CURSOR_HAND))
+            self.title.SetCursor(wx.Cursor(wx.CURSOR_HAND))
+            self.line.SetCursor(wx.Cursor(wx.CURSOR_HAND))
 
         # Layout
         vbox = wx.BoxSizer(wx.VERTICAL)

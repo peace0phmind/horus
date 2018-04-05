@@ -22,11 +22,11 @@ class ImageView(wx.Panel):
 
         self.default_image = wx.Image(resources.get_path_for_image("nusb.png"))
         self.image = self.default_image
-        self.bitmap = wx.BitmapFromImage(self.default_image)
+        self.bitmap = wx.Bitmap(self.default_image)
 
         self.black = black
         self.frame = None
-        self.current_size = self.GetSizeTuple()
+        self.current_size = self.GetSize()
         self.SetDoubleBuffered(True)
 
         self.Bind(wx.EVT_SHOW, self.on_show)
@@ -37,7 +37,7 @@ class ImageView(wx.Panel):
         self.hide = False
 
     def on_show(self, event):
-        if event.GetShow():
+        if event.IsShown():
             self.GetParent().Layout()
             self.Layout()
 
@@ -76,7 +76,7 @@ class ImageView(wx.Panel):
     def refresh_bitmap(self):
         (w, h, self.x_offset, self.y_offset) = self.get_best_size()
         if w > 0 and h > 0:
-            self.bitmap = wx.BitmapFromImage(self.image.Scale(w, h, self.quality))
+            self.bitmap = wx.Bitmap(self.image.Scale(w, h, self.quality))
             self.Refresh()
 
     def get_best_size(self):

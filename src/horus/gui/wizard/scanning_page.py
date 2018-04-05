@@ -83,7 +83,7 @@ class ScanningPage(WizardPage):
         self.video_view.set_callback(self.get_image)
 
     def on_show(self, event):
-        if event.GetShow():
+        if event.IsShown():
             self.update_status(driver.is_connected)
         else:
             try:
