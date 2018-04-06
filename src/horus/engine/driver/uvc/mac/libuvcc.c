@@ -514,9 +514,16 @@ int uvccSendRawRequest(uvccCam *cam,
 	/* maybe wLenDone should be returned insted..? */
 	return 0;
 }
-
-/* this is almost a wrapper.. */
 int uvccSendInfoRequest(uvccCam *cam,
+						enum uvccRequest uvccReq,
+						int8_t *pData)
+{
+	int ret = _uvccSendInfoRequest(cam, uvccReq, pData);
+	// fprintf(stderr, "uvccSendInfoRequest: %d, %d, %d; ret: %d\n",cam, uvccReq, pData, ret);
+	return ret;
+}
+/* this is almost a wrapper.. */
+int _uvccSendInfoRequest(uvccCam *cam,
 						enum uvccRequest uvccReq,
 						int8_t *pData)
 {

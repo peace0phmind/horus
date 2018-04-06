@@ -61,7 +61,7 @@ class Control(object):
         D4 1 = Asynchronous Control Capability
         D5 1 = Disabled due to incompatibility with Commit state.   State
         """
-        if self.info > 0 :  # Control supported
+        if self.info != None and self.info > 0 :  # Control supported
             self.value = self.get_val_from_device()
             self.min =  self.get_(UVC_GET_MIN)
             self.max =  self.get_(UVC_GET_MAX)

@@ -78,9 +78,9 @@ class Board(object):
             if self._serial_port.isOpen():
                 self._reset()  # Force Reset and flush
                 version = self._serial_port.readline()
-                if "Horus 0.1 ['$' for help]" in version:
+                if b"Horus 0.1 ['$' for help]" in version:
                     raise OldFirmware()
-                elif "Horus 0.2 ['$' for help]" in version:
+                elif b"Horus 0.2 ['$' for help]" in version:
                     self.motor_speed(1)
                     self._serial_port.timeout = 0.05
                     self._is_connected = True
@@ -124,13 +124,13 @@ class Board(object):
         if self._is_connected:
             if self._motor_speed != value:
                 self._motor_speed = value
-                self._send_command("G1F{0}".format(value))
+                self._send_command(b"G1F%d"%value)
 
     def motor_acceleration(self, value):
         if self._is_connected:
             if self._motor_acceleration != value:
                 self._motor_acceleration = value
-                self._send_command("$120={0}".format(value))
+                self._send_command(b"$120=%d"%value)
 
     def motor_enable(self):
         if self._is_connected:
@@ -140,7 +140,7 @@ class Board(object):
                 speed = self._motor_speed
                 self.motor_speed(1)
                 # Enable stepper motor
-                self._send_command("M17")
+                self._send_command(b"M17")
                 time.sleep(1)
                 # Restore speed value
                 self.motor_speed(speed)
@@ -149,29 +149,29 @@ class Board(object):
         if self._is_connected:
             if self._motor_enabled:
                 self._motor_enabled = False
-                self._send_command("M18")
+                self._send_command(b"M18")
 
     def motor_reset_origin(self):
         if self._is_connected:
-            self._send_command("G50")
+            self._send_command(b"G50")
             self._motor_position = 0
 
     def motor_move(self, step=0, nonblocking=False, callback=None):
         if self._is_connected:
             self._motor_position += step * self._motor_direction
-            self.send_command("G1X{0}".format(self._motor_position), nonblocking, callback)
+            self.send_command(b"G1X%d"%self._motor_position, nonblocking, callback)
 
     def laser_on(self, index):
         if self._is_connected:
             if not self._laser_enabled[index]:
                 self._laser_enabled[index] = True
-                self._send_command("M71T" + bytes(index + 1))
+                self._send_command(b"M71T" + bytes(index + 1))
 
     def laser_off(self, index):
         if self._is_connected:
             if self._laser_enabled[index]:
                 self._laser_enabled[index] = False
-                self._send_command("M70T" + bytes(index + 1))
+                self._send_command(b"M70T" + bytes(index + 1))
 
     def lasers_on(self):
         for i in range(self._laser_number):
@@ -182,7 +182,7 @@ class Board(object):
             self.laser_off(i)
 
     def ldr_sensor(self, pin):
-        value = self._send_command("M50T" + pin, read_lines=True).split("\n")[0]
+        value = self._send_command(b"M50T" + pin, read_lines=True).split("\n")[0]
         try:
             return int(value)
         except ValueError:
@@ -197,18 +197,19 @@ class Board(object):
 
     def _send_command(self, req, callback=None, read_lines=False):
         """Sends the request and returns the response"""
-        ret = ''
-        if self._is_connected and req != '':
+        ret = b''
+        if self._is_connected and req != b'':
             if self._serial_port is not None and self._serial_port.isOpen():
                 try:
                     self._serial_port.flushInput()
                     self._serial_port.flushOutput()
-                    self._serial_port.write(req + "\r\n")
-                    while req != '~' and req != '!' and ret == '':
+                    self._serial_port.write(req + b"\r\n")
+                    while req != b'~' and req != b'!' and ret == b'':
                         ret = self.read(read_lines)
                         time.sleep(0.01)
                     self._success()
-                except:
+                except Exception as e:
+                    logger.error(e)
                     if hasattr(self, '_serial_port'):
                         if callback is not None:
                             callback(ret)
@@ -219,9 +220,9 @@ class Board(object):
 
     def read(self, read_lines=False):
         if read_lines:
-            return ''.join(self._serial_port.readlines())
+            return b''.join(self._serial_port.readlines())
         else:
-            return ''.join(self._serial_port.readline())
+            return b'' + self._serial_port.readline()
 
     def _success(self):
         self._tries = 0
@@ -241,7 +242,7 @@ class Board(object):
     def _reset(self):
         self._serial_port.flushInput()
         self._serial_port.flushOutput()
-        self._serial_port.write("\x18\r\n")  # Ctrl-x
+        self._serial_port.write(b"\x18\r\n")  # Ctrl-x
         self._serial_port.readline()
 
     def get_serial_list(self):

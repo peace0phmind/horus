@@ -226,7 +226,7 @@ class ConnectionPage(WizardPage):
             dlg.ShowModal()
             dlg.Destroy()
         else:
-            self.result_label.SetLabel(bytes(_(result)))
+            self.result_label.SetLabel(str(_(result)))
             if isinstance(result, PatternNotDetected):
                 dlg = wx.MessageDialog(
                     self, _("Please, put the pattern on the platform. "
@@ -240,7 +240,7 @@ class ConnectionPage(WizardPage):
                 dlg = wx.MessageDialog(
                     self, _(
                         "Please, select \"Invert the motor direction\" in the preferences"),
-                    _(result), wx.OK | wx.ICON_ERROR)
+                    _(result.getName()), wx.OK | wx.ICON_ERROR)
                 dlg.ShowModal()
                 dlg.Destroy()
                 self.GetParent().parent.launch_preferences(basic=True)

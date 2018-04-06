@@ -80,7 +80,7 @@ class CalibrationData(object):
             self._dist_camera_matrix, self._roi = cv2.getOptimalNewCameraMatrix(
                 self._camera_matrix, self._distortion_vector,
                 (int(self.width), int(self.height)), alpha=1)
-            self._md5_hash = hashlib.new()
+            self._md5_hash = hashlib.md5()
             self._md5_hash.update(self._camera_matrix)
             self._md5_hash.update(self._distortion_vector)
             self._md5_hash = self._md5_hash.hexdigest()
