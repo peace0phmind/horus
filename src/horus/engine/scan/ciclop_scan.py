@@ -151,7 +151,7 @@ class CiclopScan(Scan):
 
                     # Print info
                     self._end = time.time()
-                    string_time = bytes(datetime.datetime.now())[:-3] + " - "
+                    string_time = str(datetime.datetime.now())[:-3] + " - "
 
                     if self._debug and system == 'Linux':
                         # Cursor up + remove lines

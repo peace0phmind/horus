@@ -7,6 +7,8 @@ __license__ = 'GNU General Public License v2 http://www.gnu.org/licenses/gpl2.ht
 
 
 import wx._core
+import struct
+import codecs
 
 from horus.util import profile
 from horus.gui.engine import driver, ciclop_scan, point_cloud_roi
@@ -142,7 +144,7 @@ class PointCloudColor(ExpandablePanel):
             data = dialog.GetColourData()
             color = data.GetColour().Get()
             ciclop_scan.color = color
-            profile.settings['point_cloud_color'] = str("".join(map(chr, color)).encode('hex'))
+            profile.settings['point_cloud_color'] = codecs.encode(struct.pack('BBB',*color),'hex').decode()
         dialog.Destroy()
 
     def on_selected(self):

@@ -139,7 +139,7 @@ class ScanningWorkbench(Workbench):
         ciclop_scan.motor_speed = profile.settings['motor_speed_scanning']
         ciclop_scan.motor_acceleration = profile.settings['motor_acceleration_scanning']
         ciclop_scan.color = struct.unpack(
-            'BBB', profile.settings['point_cloud_color'].decode('hex'))
+            'BBB', bytes.fromhex(profile.settings['point_cloud_color']))
         ciclop_scan.set_scan_sleep(profile.settings['scan_sleep'])
         point_cloud_roi.set_show_center(profile.settings['show_center'])
         point_cloud_roi.set_use_roi(profile.settings['use_roi'])

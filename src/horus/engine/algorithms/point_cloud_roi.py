@@ -194,9 +194,9 @@ class PointCloudROI(object):
             v_ = np.array(v.T)
 
             # Lower cylinder base
-            a = v_[:(len(v_) / 2)]
+            a = v_[:int(len(v_) / 2)]
             # Upper cylinder base
-            b = v_[(len(v_) / 2):]
+            b = v_[int(len(v_) / 2):]
 
             self._lower_vmin = int(round(np.max(a)))
             self._lower_vmax = int(round(np.min(a)))

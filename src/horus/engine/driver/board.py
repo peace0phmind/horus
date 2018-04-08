@@ -165,13 +165,13 @@ class Board(object):
         if self._is_connected:
             if not self._laser_enabled[index]:
                 self._laser_enabled[index] = True
-                self._send_command(b"M71T" + bytes(index + 1))
+                self._send_command(b"M71T%d"%(index + 1))
 
     def laser_off(self, index):
         if self._is_connected:
             if self._laser_enabled[index]:
                 self._laser_enabled[index] = False
-                self._send_command(b"M70T" + bytes(index + 1))
+                self._send_command(b"M70T%d"%(index + 1))
 
     def lasers_on(self):
         for i in range(self._laser_number):

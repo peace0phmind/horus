@@ -233,14 +233,14 @@ class ConnectionPage(WizardPage):
                             "Also you can set up the calibration's capture "
                             "settings in the \"Adjustment workbench\" "
                             "until the pattern is detected correctly"),
-                    _(result), wx.OK | wx.ICON_ERROR)
+                    str(_(result)), wx.OK | wx.ICON_ERROR)
                 dlg.ShowModal()
                 dlg.Destroy()
             elif isinstance(result, WrongMotorDirection):
                 dlg = wx.MessageDialog(
                     self, _(
                         "Please, select \"Invert the motor direction\" in the preferences"),
-                    _(result.getName()), wx.OK | wx.ICON_ERROR)
+                    str(_(result)), wx.OK | wx.ICON_ERROR)
                 dlg.ShowModal()
                 dlg.Destroy()
                 self.GetParent().parent.launch_preferences(basic=True)
@@ -250,7 +250,7 @@ class ConnectionPage(WizardPage):
                             "Also you can set up the calibration's capture and "
                             "segmentation settings in the \"Adjustment workbench\" "
                             "until the lasers are detected correctly"),
-                    _(result), wx.OK | wx.ICON_ERROR)
+                    str(_(result)), wx.OK | wx.ICON_ERROR)
                 dlg.ShowModal()
                 dlg.Destroy()
 

@@ -123,8 +123,8 @@ class Autocheck(Calibration):
                     raise WrongMotorDirection()
 
         # Move to nearest position
-        x = np.array(patterns_sorted.keys())
-        y = np.array(patterns_sorted.values())
+        x = np.array(list(patterns_sorted.keys()))
+        y = np.array(list(patterns_sorted.values()))
         A = np.vstack([x, np.ones(len(x))]).T
         m, c = np.linalg.lstsq(A, y)[0]
         pos = -c / m % 360

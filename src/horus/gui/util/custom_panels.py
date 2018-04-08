@@ -790,9 +790,9 @@ class FloatStaticArray(wx.Panel):
             for j in range(self.c):
                 self.texts[i][j] = wx.StaticText(self, size=self.size, style=wx.TE_RIGHT)
                 if self.r == 1:
-                    self.texts[i][j].SetLabel(bytes(round(self.value[j], 4)))
+                    self.texts[i][j].SetLabel(str(round(self.value[j], 4)))
                 else:
-                    self.texts[i][j].SetLabel(bytes(round(self.value[i][j], 4)))
+                    self.texts[i][j].SetLabel(str(round(self.value[i][j], 4)))
                 jbox.Add(self.texts[i][j], 1, wx.ALL | wx.EXPAND, 2)
             ibox.Add(jbox, 1, wx.ALL | wx.EXPAND, 1)
         self.SetSizer(ibox)
@@ -803,9 +803,9 @@ class FloatStaticArray(wx.Panel):
         for i in range(self.r):
             for j in range(self.c):
                 if self.r == 1:
-                    self.texts[i][j].SetLabel(bytes(round(self.value[j], 4)))
+                    self.texts[i][j].SetLabel(str(round(self.value[j], 4)))
                 else:
-                    self.texts[i][j].SetLabel(bytes(round(self.value[i][j], 4)))
+                    self.texts[i][j].SetLabel(str(round(self.value[i][j], 4)))
 
 
 class FloatLabelArray(ControlPanel):
